@@ -82,3 +82,6 @@
 [submodule "bundle/hybrid"]
 	path = bundle/hybrid
 	url = https://github.com/w0ng/vim-hybrid.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git

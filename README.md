@@ -37,8 +37,9 @@ Add
 	git submodule add https://github.com/vim-scripts/matchindent.vim.git bundle/matchindent
 	git submodule add https://github.com/tpope/vim-markdown.git bundle/markdown
 	git submodule add https://github.com/godlygeek/tabular.git bundle/tabular
+    git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
+
 	git submodule add https://github.com/vim-scripts/peaksea.git bundle/peaksea
-	
 	git submodule add https://github.com/yearofmoo/Vim-Darkmate.git bundle/darkmate/colors
 	git submodule add https://github.com/gilesbowkett/ir_black.git bundle/ir_black/colors
 	git submodule add https://github.com/altercation/vim-colors-solarized.git bundle/solarized
