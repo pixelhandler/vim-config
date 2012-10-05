@@ -1,21 +1,40 @@
 # Vim as IDE
 
+## Steps to clone and setup this vim-config
+
+	cd ~
+	git clone git://github.com/pixelhandler/vim-config.git ./.vim
+    cd ~/.vim
+    git submodule init
+    git submodule update
+    git submodule foreach git submodule init
+    git submodule foreach git submodule update
+    cd ~/.vim/bundle/command-t/
+    rake make
+    mkdir ~/.vim/_backup
+    mkdir ~/.vim/_temp
+    ln -s ~/.vim/.vimrc ~/.vimrc
+    cd ~
+
+*Note: for vagrant users I added a shell script you can use with your provision script, see the vagrant-vim.sh file*
+
+## Steps used create this vim-config repository…
+
+1. Initialize the repo
+2. Add submodules
+3. Setup pathogen
+4. Initialize bundle(s), e.g. command-t
+5. Create a .vimrc file
+6. Use a symbolic link to .vimrc in my home directory
+
+### 1. Intitials the repo
+
 	mkdir ~/.vim/
 	mkdir ~/.vim/{autoload,bundle}
 	cd ~/.vim/
 	git init
 
-Edit ~/.vimrc
-
-	vim ~/.vimrc
-	
-Add
-
-	filetype off
-	call pathogen#runtime_append_all_bundles()
-	call pathogen#helptags()
-
-## Repos
+### 2. Add submodules
 
 	git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
 	git submodule add https://github.com/msanders/snipmate.vim.git bundle/snipmate
@@ -53,22 +72,24 @@ Add
 	git submodule foreach git submodule init
 	git submodule foreach git submodule update
 
-## Setup
+### 3. Setup pathogen
 
 pathogen.vim Install to `~/.vim/autoload/pathogen.vim`
 
 	curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
-command-t
+Must haves in my .vimrc to use pathogen:
+
+	filetype off
+	call pathogen#runtime_append_all_bundles()
+	call pathogen#helptags()
+
+### 4. Initialize bundle: command-t
 	
 	cd bundle/command-t/
 	rake make
 
-symbolic link to .vimrc
-
-	ln -s ~/.vim/.vimrc ~/.vimrc
-
-## Sample .vimrc
+### 5. Create a .vimrc file
 
 	" ----------------------------------------------------------
 	" Use Vim settings, rather then Vi settings (much better!).
@@ -436,6 +457,10 @@ symbolic link to .vimrc
 	" Show (partial) command in the status line
 	set showcmd
 
+
+### 6. Use a symbolic link to .vimrc
+
+	ln -s ~/.vim/.vimrc ~/.vimrc
 
 ## References
  
