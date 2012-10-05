@@ -57,6 +57,7 @@
 	git submodule add https://github.com/tpope/vim-markdown.git bundle/markdown
 	git submodule add https://github.com/godlygeek/tabular.git bundle/tabular
     git submodule add https://github.com/scrooloose/syntastic.git bundle/syntastic
+    git submodule add https://github.com/Lokaltog/vim-powerline.git bunder/powerline
 
 	git submodule add https://github.com/vim-scripts/peaksea.git bundle/peaksea
 	git submodule add https://github.com/yearofmoo/Vim-Darkmate.git bundle/darkmate/colors
