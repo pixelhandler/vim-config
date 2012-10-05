@@ -240,6 +240,8 @@ endfunction
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
+" Allow paste without multiple indents
+set paste
 
 " ----------------------------------------------------------
 " Folds

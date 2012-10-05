@@ -10,7 +10,7 @@
     git submodule foreach git submodule init
     git submodule foreach git submodule update
     cd ~/.vim/bundle/command-t/
-    rake make
+    rake make --ruby=/usr/bin/ruby
     mkdir ~/.vim/_backup
     mkdir ~/.vim/_temp
     ln -s ~/.vim/.vimrc ~/.vimrc
