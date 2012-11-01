@@ -33,6 +33,14 @@ call pathogen#helptags()
 
 let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
+if version >= 700
+  let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+  highlight   clear
+  highlight   Pmenu         ctermfg=0 ctermbg=2
+  highlight   PmenuSel      ctermfg=0 ctermbg=7
+  highlight   PmenuSbar     ctermfg=7 ctermbg=0
+  highlight   PmenuThumb    ctermfg=0 ctermbg=7
+endif
 
 
 " Code Navigation
@@ -40,7 +48,10 @@ set completeopt=menuone,longest,preview
 " You can switch between the buffers using b<number>, such as :b1 for the first buffer. 
 " You can also use its name to match, so you can type :b mod<tab>
 " To close a buffer you use :bd or :bw.
-
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
 " ----------------------------------------------------------
 " Mappings and bundle settings
@@ -239,6 +250,42 @@ endfunction
 " Tab completion
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+
+" ctags
+" /usr/bin/ctags or /usr/local/bin/jsctags
+set tags=./.tags,~/.tags,/vagrant/.tags;
+set tags+=.tags;/
+let $Tlist_Ctags_Cmd='/usr/bin/ctags'
+autocmd FileType javascript let $Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
+
+function! UpdateTags()
+  execute ":!ctags -a -R -f .tags"
+  echohl StatusLine | echo "ctags updated" | echohl None
+endfunction
+nnoremap <F4> :call UpdateTags()
+
+" Turning completion on
+" <C-p> <C-n>
+" <C-x><C-o>
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+let OmniCpp_GlobalScopeSearch   = 1
+let OmniCpp_DisplayMode         = 1
+let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
+let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
+let OmniCpp_ShowAccess          = 1 "show access in pop-up
+let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
+set completeopt=menuone,menu,longest
+
+" tagbar - http://majutsushi.github.com/tagbar/
+nmap <F8> :TagbarToggle<CR>
+
 
 " Allow paste without multiple indents
 set paste
