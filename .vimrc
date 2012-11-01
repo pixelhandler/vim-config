@@ -53,6 +53,11 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
+" snipmate
+source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
+" let g:snips_author="Bill Heaton"
+let g:snippets_dir="~/.vim/bundle/snipmate/snippets"
+
 " ----------------------------------------------------------
 " Mappings and bundle settings
 
@@ -227,7 +232,7 @@ function! SummarizeTabs()
   try
     echohl ModeMsg
     echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:SW
+    echon ' shiftwidth='.&l:sw
     echon ' softtabstop='.&l:sts
     if &l:et
       echon ' expandtab'
@@ -288,7 +293,8 @@ nmap <F8> :TagbarToggle<CR>
 
 
 " Allow paste without multiple indents
-set paste
+" Conflicts with snipMate.vim plugin; perhaps manually use `set paste` instead
+" set paste
 
 " ----------------------------------------------------------
 " Folds
