@@ -56,7 +56,7 @@ let g:miniBufExplModSelTarget = 1
 " snipmate
 source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
 " let g:snips_author="Bill Heaton"
-let g:snippets_dir="~/.vim/bundle/snipmate/snippets"
+let g:snippets_dir="~/.vim/bundle/snipmate/snippets,~/.vim/snippets"
 
 " ----------------------------------------------------------
 " Mappings and bundle settings
