@@ -416,6 +416,8 @@ let g:hybrid_use_Xresources = 1
 " let g:solarized_contrast="high"    "default value is normal
 " let g:solarized_visibility="high"    "default value is normal
 
+" to check vim colors use :echo &t_Co
+let &t_Co=256
 
 " ----------------------------------------------------------
 " Status bar
