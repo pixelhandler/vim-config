@@ -48,10 +48,9 @@ endif
 " You can switch between the buffers using b<number>, such as :b1 for the first buffer. 
 " You can also use its name to match, so you can type :b mod<tab>
 " To close a buffer you use :bd or :bw.
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
+" let g:miniBufExplMapCTabSwitchBufs = 1
+" let g:miniBufExplModSelTarget = 1
+" let g:miniBufExplCloseOnSelect = 1
 
 " snipmate
 source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
@@ -83,6 +82,22 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
+
+" Map ctrl-movement keys to window switching
+map <C-k> <C-w><Up>
+map <C-j> <C-w><Down>
+map <C-l> <C-w><Right>
+map <C-h> <C-w><Left>
+
+" Switch to alternate file
+map <C-Tab> :bnext<CR>
+map <C-S-Tab> :bprevious<CR>
+
+" Map keys to switch buffers
+map <leader>) :bn<cr>
+map <leader>( :bp<cr>
+" map <leader>d :bd<cr> 
+
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
