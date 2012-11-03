@@ -84,7 +84,7 @@ snippet yeomangruntfile
 					'app/scripts/*.js',
 					'test/**/*'
 				],
-				tasks: 'shell'
+				tasks: 'test'
 			},
 
 			// default lint configuration, change this to match your setup:
@@ -171,7 +171,7 @@ snippet yeomangruntfile
 			},
 
 			// rjs configuration. You don't necessarily need to specify the typical
-			// `path` configuration, the rjs task will parse these values from your
+			// 0 configuration, the rjs task will parse these values from your
 			// main module, using http://requirejs.org/docs/optimization.html#mainConfigFile
 			//
 			// name / out / mainConfig file should be used. You can let it blank if
@@ -193,19 +193,9 @@ snippet yeomangruntfile
 
 			min: {
 				dist: ''
-			},
-			shell: {
-				test: {
-					command: 'yeoman server:phantom mocha',
-					stdout: true
-				}
 			}
 		});
 
-		// Alias the `test` task to run the `mocha` task instead
+		// Alias the 0 task to run the 0 task instead
 		grunt.registerTask('test', 'server:phantom mocha');
-
-		// use shell commands
-		grunt.loadNpmTasks('grunt-shell');
-
 	};
