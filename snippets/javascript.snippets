@@ -84,17 +84,17 @@ snippet yeomangruntfile
 					'app/scripts/*.js',
 					'test/**/*'
 				],
-				tasks: 'test'
+				tasks: 'lint shell'
 			},
 
 			// default lint configuration, change this to match your setup:
 			// https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
 			lint: {
-			files: [
-				'Gruntfile.js',
-				'app/scripts/*.js',
-				'test/*.js'
-			]
+				files: [
+					'Gruntfile.js',
+					'app/scripts/*.js',
+					'test/spec/*.js'
+				]
 			},
 
 			// specifying JSHint options and globals
@@ -114,7 +114,12 @@ snippet yeomangruntfile
 					browser: true
 				},
 				globals: {
-					jQuery: true
+					jQuery: true,
+					describe: true,
+					it: true,
+					expect: true,
+					define: true,
+					require: true
 				}
 			},
 
@@ -193,9 +198,19 @@ snippet yeomangruntfile
 
 			min: {
 				dist: ''
+			},
+			shell: {
+				test: {
+					command: 'yeoman server:phantom mocha',
+					stdout: true
+				}
 			}
 		});
 
 		// Alias the 0 task to run the 0 task instead
 		grunt.registerTask('test', 'server:phantom mocha');
+
+		// use shell commands `npm install grunt-shell`
+		grunt.loadNpmTasks('grunt-shell');
+
 	};
