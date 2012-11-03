@@ -9,8 +9,6 @@
     git submodule update
     git submodule foreach git submodule init
     git submodule foreach git submodule update
-    cd ~/.vim/bundle/command-t/
-    rake make --ruby=/usr/bin/ruby
     mkdir ~/.vim/_backup
     mkdir ~/.vim/_temp
     ln -s ~/.vim/.vimrc ~/.vimrc
@@ -23,9 +21,8 @@
 1. Initialize the repo
 2. Add submodules
 3. Setup pathogen
-4. Initialize bundle(s), e.g. command-t
-5. Create a .vimrc file
-6. Use a symbolic link to .vimrc in my home directory
+4. Create a .vimrc file
+5. Use a symbolic link to .vimrc in my home directory
 
 ### 1. Intitials the repo
 
@@ -41,8 +38,7 @@
 	git submodule add https://github.com/tpope/vim-surround.git bundle/surround
 	git submodule add https://github.com/tpope/vim-git.git bundle/git
 	git submodule add https://github.com/ervandew/supertab.git bundle/supertab
-	git submodule add https://github.com/wincent/Command-T.git bundle/command-t
-	git submodule add https://github.com/fholgado/minibufexpl.vim.git bundle/minibufexpl
+	git submodule add https://github.com/vim-scripts/bufexplorer.zip.git bundle/bufexplorer
 	git submodule add https://github.com/mileszs/ack.vim.git bundle/ack
 	git submodule add https://github.com/sjl/gundo.vim.git bundle/gundo
 	git submodule add https://github.com/vim-scripts/TaskList.vim.git bundle/tasklist
@@ -85,12 +81,7 @@ Must haves in my .vimrc to use pathogen:
 	call pathogen#runtime_append_all_bundles()
 	call pathogen#helptags()
 
-### 4. Initialize bundle: command-t
-	
-	cd bundle/command-t/
-	rake make
-
-### 5. Create a .vimrc file
+### 4. Create a .vimrc file
 
 	" ----------------------------------------------------------
 	" Use Vim settings, rather then Vi settings (much better!).
@@ -130,11 +121,7 @@ Must haves in my .vimrc to use pathogen:
 	
 	
 	" Code Navigation
-	" Buffers, minibufexpl plugin
-	" You can switch between the buffers using b<number>, such as :b1 for the first buffer. 
-	" You can also use its name to match, so you can type :b mod<tab>
-	" To close a buffer you use :bd or :bw.
-	
+	" :h bufexplorer
 	
 	" ----------------------------------------------------------
 	" Mappings and bundle settings
@@ -459,7 +446,7 @@ Must haves in my .vimrc to use pathogen:
 	set showcmd
 
 
-### 6. Use a symbolic link to .vimrc
+### 5. Use a symbolic link to .vimrc
 
 	ln -s ~/.vim/.vimrc ~/.vimrc
 
