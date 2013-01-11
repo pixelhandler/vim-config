@@ -388,19 +388,19 @@ let g:JSLintHighlightErrorLine = 0
 " to find a new color scheme just go to http://code.google.com/p/vimcolorschemetest/
 
 set background=dark
-" set background=light
+"set background=light
 
-colorscheme darkmate
-
-" Hybrid
-let g:hybrid_use_Xresources = 1
-" colorscheme hybrid
-
+" colorscheme darkmate
+colorscheme madeofcode
 " colorscheme ir_black
 " colorscheme mayansmoke
 " colorscheme mustang
 " colorscheme peaksea
 " colorscheme pyte
+
+" Hybrid
+" let g:hybrid_use_Xresources = 1
+" colorscheme hybrid
 
 " Solarized
 " colorscheme solarized
