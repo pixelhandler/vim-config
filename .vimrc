@@ -29,7 +29,43 @@ call pathogen#helptags()
 
 
 " ----------------------------------------------------------
-" Tab Completion and Documentation
+" Tab Completion
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+
+" ctags
+" /usr/bin/ctags or /usr/local/bin/jsctags
+set tags=./.tags,~/.tags,/vagrant/.tags;
+set tags+=.tags;/
+let $Tlist_Ctags_Cmd='/usr/bin/ctags'
+autocmd FileType javascript let $Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
+
+function! UpdateTags()
+  execute ":!ctags -a -R -f .tags"
+  echohl StatusLine | echo "ctags updated" | echohl None
+endfunction
+nnoremap <F4> :call UpdateTags()
+
+
+" Turning omnicompletion completion on
+" <C-p> <C-n>
+" <C-x><C-o>
+set ofu=syntaxcomplete#Complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+let OmniCpp_GlobalScopeSearch   = 1
+let OmniCpp_DisplayMode         = 1
+let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
+let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
+let OmniCpp_ShowAccess          = 1 "show access in pop-up
+let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
+set completeopt=menuone,menu,longest
 
 let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
@@ -48,9 +84,6 @@ endif
 " You can switch between the buffers using b<number>, such as :b1 for the first buffer. 
 " You can also use its name to match, so you can type :b mod<tab>
 " To close a buffer you use :bd or :bw.
-" let g:miniBufExplMapCTabSwitchBufs = 1
-" let g:miniBufExplModSelTarget = 1
-" let g:miniBufExplCloseOnSelect = 1
 
 " snipmate
 source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
@@ -96,7 +129,7 @@ map <C-S-Tab> :bprevious<CR>
 " Map keys to switch buffers
 map <leader>) :bn<cr>
 map <leader>( :bp<cr>
-" map <leader>d :bd<cr> 
+" map <leader>d :bd<cr>
 
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
@@ -179,6 +212,23 @@ imap <C-8> <Esc>8gt
 map  <C-9> 9gt
 imap <C-9> <Esc>9gt
 
+" Map Coffeescript commands using kchmck/vim-coffee-script
+"map <C-Tab> :bnext<CR>
+"map <C-S-Tab> :bprevious<CR>
+map <leader>fcc :compiler coffee<CR>
+map <leader>fm :make<CR>
+map <leader>fsm :silent make<CR>
+map <leader>fsm! :silent make!<CR>
+map <leader>fmq :make | cwindow
+map <leader>fc :CoffeeCompile | vert cwindow
+map <leader>fw :CoffeeWatch vert<CR>
+map <leader>sb :setl scrollbind<CR>
+map <leader>fr :CoffeeRun<CR>
+map <leader>fl :CoffeeLint! | cwindow
+
+" compile on write
+" au BufWritePost *.coffee silent make!
+" au BufWritePost *.coffee silent make! -b | cwindow | redraw!
 
 " ----------------------------------------------------------
 " Backup and swap files
@@ -266,42 +316,6 @@ function! s:setupWrapping()
   set textwidth=72
   set nolist
 endfunction
-
-" Tab completion
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
-
-" ctags
-" /usr/bin/ctags or /usr/local/bin/jsctags
-set tags=./.tags,~/.tags,/vagrant/.tags;
-set tags+=.tags;/
-let $Tlist_Ctags_Cmd='/usr/bin/ctags'
-autocmd FileType javascript let $Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
-
-function! UpdateTags()
-  execute ":!ctags -a -R -f .tags"
-  echohl StatusLine | echo "ctags updated" | echohl None
-endfunction
-nnoremap <F4> :call UpdateTags()
-
-" Turning completion on
-" <C-p> <C-n>
-" <C-x><C-o>
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-let OmniCpp_GlobalScopeSearch   = 1
-let OmniCpp_DisplayMode         = 1
-let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
-let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
-let OmniCpp_ShowAccess          = 1 "show access in pop-up
-let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
-set completeopt=menuone,menu,longest
 
 " tagbar - http://majutsushi.github.com/tagbar/
 nmap <F8> :TagbarToggle<CR>
