@@ -100,12 +100,15 @@
 [submodule "bundle/mustache"]
 	path = bundle/mustache
 	url = git://github.com/mustache/vim-mustache-handlebars.git
-[submodule "/Users/billheat/.vim/bundle/ember.vim"]
-	path = /Users/billheat/.vim/bundle/ember.vim
+[submodule "bundle/ctrlp.vim"]
+	path = bundle/ctrlp.vim
+	url = git@github.com:kien/ctrlp.vim.git
+[submodule "bundle/ember.vim"]
+	path = bundle/ember.vim
 	url = git@github.com:dsawardekar/ember.vim.git
-[submodule "/Users/billheat/.vim/bundle/portkey"]
-	path = /Users/billheat/.vim/bundle/portkey
+[submodule "bundle/portkey"]
+	path = bundle/portkey
 	url = git@github.com:dsawardekar/portkey.git
-[submodule "/Users/billheat/.vim/bundle/vim-json"]
-	path = /Users/billheat/.vim/bundle/vim-json
+[submodule "bundle/vim-json"]
+	path = bundle/vim-json
 	url = git@github.com:elzr/vim-json.git
