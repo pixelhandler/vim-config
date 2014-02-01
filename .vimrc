@@ -35,6 +35,7 @@ set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
 " ctags
 " /usr/bin/ctags or /usr/local/bin/jsctags
+" `jsctags -R .` similar to `ctags -R --exclude='.git' .`
 set tags=./.tags,~/.tags,/vagrant/.tags;
 set tags+=.tags;/
 let $Tlist_Ctags_Cmd='/usr/bin/ctags'
@@ -50,11 +51,13 @@ nnoremap <F4> :call UpdateTags()
 " Turning omnicompletion completion on
 " <C-p> <C-n>
 " <C-x><C-o>
-set ofu=syntaxcomplete#Complete
+"set ofu=syntaxcomplete#Complete
+set omnifunc=syntaxcomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType sass set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
@@ -230,6 +233,17 @@ map <leader>fl :CoffeeLint! | cwindow
 " au BufWritePost *.coffee silent make!
 " au BufWritePost *.coffee silent make! -b | cwindow | redraw!
 
+" ctrlp.vim
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+" <LocalLeader>
+let g:maplocalleader = ';'
+
+" vim-mustache-handlebars
+let g:mustache_abbreviations = 1
+
+" vim-json
+let g:vim_json_syntax_conceal = 0
+
 " ----------------------------------------------------------
 " Backup and swap files
 
@@ -270,6 +284,7 @@ set softtabstop=4
 set tabstop=4
 set expandtab
 
+" (needed for snipmate filetype plugin on)
 filetype plugin on
 filetype indent on
 
@@ -360,10 +375,10 @@ match OverLength /\%80v.*/
 if has("autocmd")
   " Enable file type detection
   filetype on
-  
+
   " In Makefiles, use real tabs, not tabs expanded to spaces
   autocmd FileType make setlocal noexpandtab
-  
+
   " Make sure all markdown files have the correct filetype set and setup wrapping
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
 
@@ -372,18 +387,20 @@ if has("autocmd")
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
   " Customisations based on house-style (arbitrary)
-  autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType css setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType less setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType less setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 
   autocmd FileType php setlocal noexpandtab ts=4 sts=4 sw=4
   autocmd FileType php let g:syntastic_enable_highlighting=0
   autocmd FileType php let g:syntastic_quiet_warnings=1
 
+  autocmd BufNewFile,BufRead *.sass setfiletype css
   autocmd BufNewFile,BufRead *.json setfiletype javascript
   autocmd BufNewFile,BufRead *.php setfiletype php
   autocmd BufNewFile,BufRead *.phtml setfiletype html
+  autocmd BufNewFile,BufRead *.hbs setfiletype html
 
   " Treat .rss files as XML
   autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml

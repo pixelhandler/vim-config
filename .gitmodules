@@ -97,3 +97,15 @@
 [submodule "bundle/jellybeans"]
 	path = bundle/jellybeans
 	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "bundle/mustache"]
+	path = bundle/mustache
+	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule "/Users/billheat/.vim/bundle/ember.vim"]
+	path = /Users/billheat/.vim/bundle/ember.vim
+	url = git@github.com:dsawardekar/ember.vim.git
+[submodule "/Users/billheat/.vim/bundle/portkey"]
+	path = /Users/billheat/.vim/bundle/portkey
+	url = git@github.com:dsawardekar/portkey.git
+[submodule "/Users/billheat/.vim/bundle/vim-json"]
+	path = /Users/billheat/.vim/bundle/vim-json
+	url = git@github.com:elzr/vim-json.git
