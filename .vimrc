@@ -1,4 +1,4 @@
-" ----------------------------------------------------------
+
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible      " Use vim, no vi defaults
@@ -15,6 +15,17 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 "call pathogen#infect()
 call pathogen#helptags()
+
+
+" ----------------------------------------------------------
+" based on tutorial for best practices
+" https://danielmiessler.com/study/vim/
+
+inoremap jk <ESC>
+let mapleader = "\<Space>"
+filetype plugin indent on
+syntax on
+set encoding=utf-8
 
 
 " ----------------------------------------------------------
@@ -285,8 +296,8 @@ set tabstop=4
 set expandtab
 
 " (needed for snipmate filetype plugin on)
-filetype plugin on
-filetype indent on
+"filetype plugin on
+"filetype indent on
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
@@ -355,8 +366,8 @@ set nofoldenable        "Don't fold by default
 "syntax on                   " syntax highlighing
 syntax enable               " Turn on syntax highlighting allowing local overrides
 
-filetype on                 " try to detect filetypes
-filetype plugin indent on   " enable loading indent file for filetype
+"filetype on                 " try to detect filetypes
+"filetype plugin indent on   " enable loading indent file for filetype
 
 " PHP highlighting extras
 " https://github.com/Apreche/vim/blob/master/vimrc
@@ -449,6 +460,48 @@ colorscheme madeofcode
 
 " to check vim colors use :echo &t_Co
 let &t_Co=256
+
+" ----------------------------------------------------------
+" tmux settings
+
+if exists('$TMUX')
+  set term=screen-256color
+endif
+
+if exists('$ITERM_PROFILE')
+  if exists('$TMUX')
+    let &t_SI = "\<Esc>[3 q"
+    let &t_EI = "\<Esc>[0 q"
+  else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+end
+
+" for tmux to automatically set paste and nopaste mode at the time pasting (as happens in VIM UI)
+
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 
 " ----------------------------------------------------------
 " Status bar
