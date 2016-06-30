@@ -95,7 +95,7 @@ endif
 
 " Code Navigation
 " Buffers, minibufexpl plugin
-" You can switch between the buffers using b<number>, such as :b1 for the first buffer. 
+" You can switch between the buffers using b<number>, such as :b1 for the first buffer.
 " You can also use its name to match, so you can type :b mod<tab>
 " To close a buffer you use :bd or :bw.
 
@@ -123,7 +123,7 @@ let NERDTreeShowHidden=1
 " Searching, Ack
 nmap <leader>a <Esc>:Ack!
 
-" Window Splits, bind Ctrl+<movement> keys to move around the windows, 
+" Window Splits, bind Ctrl+<movement> keys to move around the windows,
 " instead of using Ctrl+w + <movement>:
 map <c-j> <c-w>j
 map <c-k> <c-w>k
