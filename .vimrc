@@ -522,22 +522,33 @@ let g:elm_syntastic_show_warnings = 1
 
 " ----------------------------------------------------------
 " Colors
-" to find a new color scheme just go to http://code.google.com/p/vimcolorschemetest/
+" to find a new color scheme just go to  http://vimcolors.com/
 
 set background=dark
-"set background=light
+" set background=light
+
+" Jellybeans - https://github.com/nanotech/jellybeans.vim
+colorscheme jellybeans
+
+" colorscheme srcery
+" colorscheme madeofcode
 
 " colorscheme darkmate
-colorscheme madeofcode
 " colorscheme ir_black
+" colorscheme deep-space
 " colorscheme mayansmoke
 " colorscheme mustang
 " colorscheme peaksea
 " colorscheme pyte
+" colorscheme xcode
 
 " Hybrid
-" let g:hybrid_use_Xresources = 1
+" let g:hybrid_custom_term_colors = 1
+" let g:hybrid_reduced_contrast = 1
 " colorscheme hybrid
+
+" One - https://github.com/rakr/vim-one
+" colorscheme one
 
 " Solarized
 " colorscheme solarized
@@ -555,6 +566,12 @@ colorscheme madeofcode
 
 " to check vim colors use :echo &t_Co
 let &t_Co=256
+
+if (empty($TMUX))
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 
 " ----------------------------------------------------------
 " tmux settings
