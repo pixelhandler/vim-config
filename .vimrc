@@ -172,10 +172,6 @@ set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 " You can also use its name to match, so you can type :b mod<tab>
 " To close a buffer you use :bd or :bw.
 
-" snipmate
-source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
-" let g:snips_author="Bill Heaton"
-let g:snippets_dir="~/.vim/bundle/snipmate/snippets,~/.vim/snippets"
 
 " ----------------------------------------------------------
 " Mappings and bundle settings
