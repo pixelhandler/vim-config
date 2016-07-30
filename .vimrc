@@ -565,8 +565,8 @@ colorscheme jellybeans
 " colorscheme peaksea
 " colorscheme pyte
 
-" to check vim colors use :echo &t_Co
-let &t_Co=256
+" GUI colors, to check vim colors use :echo &t_Co
+" let &t_Co=256
 
 if (empty($TMUX))
   if (has("termguicolors"))
