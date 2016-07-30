@@ -38,61 +38,134 @@ set encoding=utf-8
 " Gread: This will basically run a git checkout <filename>
 " Gcommit: This will just run git commit. Since its in a vim buffer, you can use keyword completion (Ctrl-N), like test_all<Ctrl-N> to find the method name in your buffer and complete it for the commit message. You can also use + and - on the filenames in the message to stage/unstage them for the commit.
 
+" ----------------------------------------------------------
+" Neocomplete
+" https://github.com/Shougo/neocomplete.vim
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" elm-vim
+call neocomplete#util#set_default_dictionary(
+  \ 'g:neocomplete#sources#omni#input_patterns',
+  \ 'elm',
+  \ '\.')
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
 
 " ----------------------------------------------------------
-" Tab Completion
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
-
-" ctags
-" /usr/bin/ctags or /usr/local/bin/jsctags
-" `jsctags -R .` similar to `ctags -R --exclude='.git' .`
-set tags=./.tags,~/.tags,/vagrant/.tags;
-set tags+=.tags;/
-let $Tlist_Ctags_Cmd='/usr/bin/ctags'
-autocmd FileType javascript let $Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
-
-function! UpdateTags()
-  execute ":!ctags -a -R -f .tags"
-  echohl StatusLine | echo "ctags updated" | echohl None
-endfunction
-nnoremap <F4> :call UpdateTags()
-
+" Omni Completion
+" http://vim.wikia.com/wiki/Omni_completion
 
 " Turning omnicompletion completion on
 " <C-p> <C-n>
 " <C-x><C-o>
-"set ofu=syntaxcomplete#Complete
-set omnifunc=syntaxcomplete#Complete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType sass set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-let OmniCpp_GlobalScopeSearch   = 1
-let OmniCpp_DisplayMode         = 1
-let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
-let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
-let OmniCpp_ShowAccess          = 1 "show access in pop-up
-let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
-set completeopt=menuone,menu,longest
-
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
-if version >= 700
-  let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-  highlight   clear
-  highlight   Pmenu         ctermfg=0 ctermbg=2
-  highlight   PmenuSel      ctermfg=0 ctermbg=7
-  highlight   PmenuSbar     ctermfg=7 ctermbg=0
-  highlight   PmenuThumb    ctermfg=0 ctermbg=7
-endif
+""set ofu=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+"autocmd FileType sass set omnifunc=csscomplete#CompleteCSS
+"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+"autocmd FileType c set omnifunc=ccomplete#Complete
 
 
+" ----------------------------------------------------------
+" ctags
+" http://ricostacruz.com/til/navigate-code-with-ctags.html
+" https://github.com/craigemery/vim-autotag
+
+" /usr/bin/ctags or /usr/local/bin/jsctags
+" `jsctags -R .` similar to `ctags -R --exclude='.git' .`
+set tags=./.tags,~/.tags;
+set tags+=.tags;/
+let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+"autocmd FileType javascript let $Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
+
+"function! UpdateTags()
+  "execute ":!ctags -a -R -f .tags"
+  "echohl StatusLine | echo "ctags updated" | echohl None
+"endfunction
+"nnoremap <F4> :call UpdateTags()
+
+
+" ----------------------------------------------------------
+" Vim filename completion
+" https://sanctum.geek.nz/arabesque/vim-filename-completion/
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+
+
+" ----------------------------------------------------------
 " Code Navigation
 " Buffers, minibufexpl plugin
 " You can switch between the buffers using b<number>, such as :b1 for the first buffer.
@@ -366,6 +439,18 @@ set nofoldenable        "Don't fold by default
 "syntax on                   " syntax highlighing
 syntax enable               " Turn on syntax highlighting allowing local overrides
 
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
 "filetype on                 " try to detect filetypes
 "filetype plugin indent on   " enable loading indent file for filetype
 
@@ -402,6 +487,7 @@ if has("autocmd")
   autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType less setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType elm setlocal ts=2 sts=2 sw=2 expandtab
 
   autocmd FileType php setlocal noexpandtab ts=4 sts=4 sw=4
   autocmd FileType php let g:syntastic_enable_highlighting=0
@@ -412,6 +498,7 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.php setfiletype php
   autocmd BufNewFile,BufRead *.phtml setfiletype html
   autocmd BufNewFile,BufRead *.hbs setfiletype html
+  autocmd BufNewFile,BufRead *.elm setfiletype elm
 
   " Treat .rss files as XML
   autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
@@ -424,6 +511,18 @@ endif
 " Turn on jslint errors by default, 0 to disable
 let g:JSLintHighlightErrorLine = 0
 
+" ----------------------------------------------------------
+" Elm lang and formatter https://github.com/ElmCast/elm-vim
+let g:elm_jump_to_error = 1
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 1
+let g:elm_syntastic_show_warnings = 1
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 1
+let g:elm_format_autosave = 1
+let g:elm_setup_keybindings = 1
+let g:elm_classic_hightlighting = 0
+let g:elm_syntastic_show_warnings = 1
 
 " ----------------------------------------------------------
 " Colors
