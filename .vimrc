@@ -531,15 +531,7 @@ set background=dark
 colorscheme jellybeans
 
 " colorscheme srcery
-" colorscheme madeofcode
-
-" colorscheme darkmate
-" colorscheme ir_black
-" colorscheme deep-space
-" colorscheme mayansmoke
-" colorscheme mustang
-" colorscheme peaksea
-" colorscheme pyte
+" colorscheme flatcolor
 " colorscheme xcode
 
 " Hybrid
@@ -563,6 +555,15 @@ colorscheme jellybeans
 " let g:solarized_menu=1
 " let g:solarized_contrast="high"    "default value is normal
 " let g:solarized_visibility="high"    "default value is normal
+
+" colorscheme darkmate
+" colorscheme madeofcode
+" colorscheme ir_black
+" colorscheme deep-space
+" colorscheme mayansmoke
+" colorscheme mustang
+" colorscheme peaksea
+" colorscheme pyte
 
 " to check vim colors use :echo &t_Co
 let &t_Co=256
