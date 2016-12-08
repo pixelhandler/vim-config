@@ -315,6 +315,7 @@ map <leader>fl :CoffeeLint! | cwindow
 
 " ctrlp.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 " <LocalLeader>
 let g:maplocalleader = ';'
 
@@ -442,10 +443,10 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-
+let g:airline#extensions#syntastic#enabled = 0
 
 "filetype on                 " try to detect filetypes
 "filetype plugin indent on   " enable loading indent file for filetype
@@ -501,6 +502,10 @@ if has("autocmd")
 
   " Treat .less files
   "autocmd BufNewFile,BufRead *.less setfiletype less "setf less
+
+  " configure the languages highlighted in Markdown code fences
+  autocmd BufNewFile,BufRead *.md set spell | set lbr | set nonu
+  let g:markdown_fenced_languages = ['html', 'json', 'css', 'javascript', 'elm', 'vim']
 endif
 
 
@@ -519,17 +524,22 @@ let g:elm_format_autosave = 1
 let g:elm_setup_keybindings = 1
 let g:elm_classic_hightlighting = 0
 let g:elm_syntastic_show_warnings = 1
+let g:polyglot_disabled = ['elm']
 
 " ----------------------------------------------------------
 " Colors
 " to find a new color scheme just go to  http://vimcolors.com/
 
+"hi Normal guibg=NONE ctermbg=NONE
+"highlight NonText ctermbg=none
+
 set background=dark
-" set background=light
+"set background=light
 
 " Jellybeans - https://github.com/nanotech/jellybeans.vim
-colorscheme jellybeans
+" colorscheme jellybeans
 
+colorscheme gruvbox
 " colorscheme srcery
 " colorscheme flatcolor
 " colorscheme xcode
@@ -543,18 +553,18 @@ colorscheme jellybeans
 " colorscheme one
 
 " Solarized
-" colorscheme solarized
-" let g:solarized_termtrans=1
-" let g:solarized_degrade=0
-" let g:solarized_bold=1
-" let g:solarized_underline=1
-" let g:solarized_italic=1
-" let g:solarized_termcolors=256
-" let g:solarized_diffmode="normal"
-" let g:solarized_hitrail=0
-" let g:solarized_menu=1
-" let g:solarized_contrast="high"    "default value is normal
-" let g:solarized_visibility="high"    "default value is normal
+"colorscheme solarized
+"let g:solarized_degrade=0
+"let g:solarized_bold=1
+"let g:solarized_underline=1
+"let g:solarized_italic=1
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans=1
+"let g:solarized_diffmode="normal"
+"let g:solarized_hitrail=0
+"let g:solarized_menu=1
+"let g:solarized_contrast="high"    "default value is normal
+"let g:solarized_visibility="high"    "default value is normal
 
 " colorscheme darkmate
 " colorscheme madeofcode
@@ -617,6 +627,13 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " ----------------------------------------------------------
+" Fonts
+" use menu, set guifont=*
+set guifont=Hack\ Regular/16/-1
+
+
+
+" ----------------------------------------------------------
 " Status bar
 
 if has("statusline") && !&cp
@@ -632,3 +649,9 @@ endif
 
 " Show (partial) command in the status line
 set showcmd
+
+
+" ----------------------------------------------------------
+" Airline
+let g:airline_left_sep= '░'
+let g:airline_right_sep= '░'
