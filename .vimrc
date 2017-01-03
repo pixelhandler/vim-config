@@ -41,6 +41,7 @@ set encoding=utf-8
 " ----------------------------------------------------------
 " Neocomplete
 " https://github.com/Shougo/neocomplete.vim
+" `brew install vim --with-lua`
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -142,21 +143,21 @@ endif
 " ----------------------------------------------------------
 " ctags
 " http://ricostacruz.com/til/navigate-code-with-ctags.html
-" https://github.com/craigemery/vim-autotag
 
 " /usr/bin/ctags or /usr/local/bin/jsctags
 " `jsctags -R .` similar to `ctags -R --exclude='.git' .`
-set tags=./.tags,~/.tags;
-set tags+=.tags;/
-let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 "autocmd FileType javascript let $Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
+set tags=./.ctags,.ctags;
+let $Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
-"function! UpdateTags()
-  "execute ":!ctags -a -R -f .tags"
-  "echohl StatusLine | echo "ctags updated" | echohl None
-"endfunction
-"nnoremap <F4> :call UpdateTags()
+function! UpdateTags()
+  execute ":!ctags -a -R -f .ctags"
+  echohl StatusLine | echo "ctags updated" | echohl None
+endfunction
+nnoremap <F4> :call UpdateTags()
 
+" https://github.com/craigemery/vim-autotag
+let g:autotagTagsFile="tags"
 
 " ----------------------------------------------------------
 " Vim filename completion
@@ -315,6 +316,9 @@ map <leader>fl :CoffeeLint! | cwindow
 
 " ctrlp.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_use_caching=0
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_custom_ignore = '\v[\/](transpiled)|dist|tmp|bower_components|node_modules|(\.(swp|git|bak|pyc|DS_Store))$'
 
 " <LocalLeader>
 let g:maplocalleader = ';'
@@ -525,6 +529,27 @@ let g:elm_setup_keybindings = 1
 let g:elm_classic_hightlighting = 0
 let g:elm_syntastic_show_warnings = 1
 let g:polyglot_disabled = ['elm']
+
+
+" ----------------------------------------------------------
+" http://vim.wikia.com/wiki/Highlight_all_search_pattern_matches
+set hlsearch
+
+nnoremap <silent> n   n:call HLNext(0.4)<cr>
+nnoremap <silent> N   N:call HLNext(0.4)<cr>
+
+function! HLNext (blinktime)
+    highlight HighlightStyle ctermfg=none ctermbg=160 cterm=none
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('HighlightStyle', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 500) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction
+
 
 " ----------------------------------------------------------
 " Colors
