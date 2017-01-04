@@ -112,9 +112,6 @@
 [submodule "bundle/vim-bundler"]
 	path = bundle/vim-bundler
 	url = https://github.com/tpope/vim-bundler.git
-[submodule "bundle/vim-autotag"]
-	path = bundle/vim-autotag
-	url = https://github.com/craigemery/vim-autotag.git
 [submodule "bundle/srcery"]
 	path = bundle/srcery
 	url = https://github.com/roosta/srcery.git

@@ -157,7 +157,7 @@ endfunction
 nnoremap <F4> :call UpdateTags()
 
 " https://github.com/craigemery/vim-autotag
-let g:autotagTagsFile="tags"
+"let g:autotagTagsFile="tags"
 
 " ----------------------------------------------------------
 " Vim filename completion
