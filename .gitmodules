@@ -139,3 +139,6 @@
 [submodule "bundle/vim-polyglot"]
 	path = bundle/vim-polyglot
 	url = git@github.com:sheerun/vim-polyglot.git
+[submodule "bundle/nerdtree-git-plugin"]
+	path = bundle/nerdtree-git-plugin
+	url = git@github.com:Xuyuanp/nerdtree-git-plugin.git
