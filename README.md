@@ -46,6 +46,12 @@ Initialize and update
 	git submodule foreach git submodule init
 	git submodule foreach git submodule update
 
+- *[neocomplete]* requires lua support, install vim with lua:
+
+	brew install vim --with-lua
+
+[neocomplete]: https://github.com/Shougo/neocomplete.vim
+
 ### 3. Setup pathogen
 
 pathogen.vim Install to `~/.vim/autoload/pathogen.vim`
